@@ -1,5 +1,4 @@
 from flask import Flask, Blueprint, jsonify
-from services.asana_api import AsanaApi
 from services.phabricator_api import PhabricatorApi
 from config import Config
 
