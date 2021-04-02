@@ -1,5 +1,6 @@
 from config import Config
 from models.task import Task
+from models.project import Project
 from datetime import datetime
 from phabricator import Phabricator
 
@@ -20,32 +21,33 @@ class PhabricatorApi:
 
         return self.client.user.whoami()
 
-    def get_tasks(self, project_id, limit=5):
+    def get_tasks(self, project, limit=5):
         """
         Arbitrarily narrow down to only one workspace
-        :param project_id: PHID of Phabricator tag
+        :param project_id: PHID of Phabricator project
         """
         task_list = []
 
         tasks = self.client.maniphest.search(
-            queryKey="all", constraints={"projects": [project_id]}, limit=limit
+            queryKey="all", constraints={"projects": [project.id]}, limit=limit
         )["data"]
 
         # Parse JSON into Task objects
         for task in tasks:
             task_list.append(
                 Task(
-                    task["id"],
-                    task["fields"]["name"],
-                    "{}".format(Config.PHABRICATOR_URI.replace("/api/", ""))
+                    id=task["id"],
+                    title=task["fields"]["name"],
+                    link="{}".format(Config.PHABRICATOR_URI.replace("/api/", ""))
                     + "/T"
                     + str(task["id"]),
-                    ("Completed" == task["fields"]["status"]["value"]),
-                    datetime.strftime(
+                    is_completed=("Completed" == task["fields"]["status"]["value"]),
+                    created_at=datetime.strftime(
                         datetime.fromtimestamp(task["fields"]["dateCreated"]),
                         "%Y-%m-%d %H:%m:%S",
                     ),
-                    task["fields"]["priority"]["value"],
+                    priority=task["fields"]["priority"]["value"],
+                    project=project,
                 )
             )
 
@@ -65,37 +67,51 @@ class PhabricatorApi:
                 "created_at": task.created_at,
                 "is_completed": task.is_completed,
                 "priority": task.priority,
+                "project": task.project.as_map(),
             }
             for task in tasks
         ]
 
         return tasks
 
-    def find_tags_by_term(self, tag_prefix):
+    def find_projects_by_term(self, project_prefix):
         """
-        Collect an array of Phabricator tags
+        Collect an array of Phabricator projects
         along with their relevant details
 
-        :param tag_prefix: The tags prefix
+        :param project_prefix: The projects prefix
         """
-        tags = []
-        tags = self.client.project.search(
+        projects = []
+        projects = self.client.project.search(
             queryKey="all",
-            constraints={"name": tag_prefix},
+            constraints={"name": project_prefix},
         )["data"]
 
-        return tags
+        # Format JSON as proper Project objects
+        projects = [
+            Project(
+                project["phid"],
+                project["fields"]["name"],
+                project["fields"]["description"],
+                Config.PHABRICATOR_URI.replace("/api/", "")
+                + "/maniphest/?project="
+                + project["phid"],
+            )
+            for project in projects
+        ]
 
-    def get_tasks_by_tags(self, tags, limit=5):
+        return projects
+
+    def get_tasks_by_projects(self, projects, limit=5):
         """
-        Collect a number of tasks from an list of tags
+        Collect a number of tasks from an list of projects
 
-        :param tags: a list of tag IDs
+        :param projects: a list of project IDs
         :param limit: how many tasks to collect
         """
         tasks = []
-        for tag in tags:
+        for project in projects:
             # concatenate list of tasks
-            tasks += self.get_tasks(tag["phid"], limit)
+            tasks += self.get_tasks(project, limit)
 
         return tasks
