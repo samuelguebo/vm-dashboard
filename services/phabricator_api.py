@@ -24,15 +24,11 @@ class PhabricatorApi:
         """
         Arbitrarily narrow down to only one workspace
         :param project_id: PHID of Phabricator tag
-        :param limit: how many tasks to collect
         """
         task_list = []
 
         tasks = self.client.maniphest.search(
-            queryKey="all",
-            constraints={"projects": [project_id]},
-            limit=limit,
-            attachments={"columns": True},
+            queryKey="all", constraints={"projects": [project_id]}, limit=limit
         )["data"]
 
         # Parse JSON into Task objects
@@ -49,20 +45,16 @@ class PhabricatorApi:
                         datetime.fromtimestamp(task["fields"]["dateCreated"]),
                         "%Y-%m-%d %H:%m:%S",
                     ),
-                    task["attachments"]["columns"]["boards"][project_id]["columns"][0][
-                        "name"
-                    ],
                 )
             )
 
         return task_list
 
-    def get_tasks_as_json(self, limit=1):
+    def get_tasks_as_json(tasks, self):
         """
         Serialize a list tasks into JSON format
-        :param limit: how many tasks to collect
+        :param tasks: array of tasks
         """
-        tasks = self.get_tasks(limit)
 
         tasks = [
             {
@@ -90,5 +82,19 @@ class PhabricatorApi:
             queryKey="all",
             constraints={"name": tag_prefix},
         )["data"]
-        
+
         return tags
+
+    def get_tasks_by_tags(self, tags, limit=5):
+        """
+        Collect a number of tasks from an list of tags
+
+        :param tags: a list of tag IDs
+        :param limit: how many tasks to collect
+        """
+        tasks = []
+        for tag in tags:
+            # concatenate list of tasks
+            tasks += self.get_tasks(tag["phid"], limit)
+
+        return tasks
