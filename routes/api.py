@@ -14,7 +14,7 @@ display_limit = 5
 @api_bp.route("/api/tasks/phabricator")
 def phabricator_tasks():
     """
-    Collect tasks through the webservice
+    Collect tasks through the services
     and render them as JSON
     """
     tasks = []

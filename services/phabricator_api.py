@@ -45,12 +45,13 @@ class PhabricatorApi:
                         datetime.fromtimestamp(task["fields"]["dateCreated"]),
                         "%Y-%m-%d %H:%m:%S",
                     ),
+                    task["fields"]["priority"]["value"],
                 )
             )
 
         return task_list
 
-    def get_tasks_as_json(tasks, self):
+    def get_tasks_as_json(self, tasks):
         """
         Serialize a list tasks into JSON format
         :param tasks: array of tasks
@@ -63,7 +64,7 @@ class PhabricatorApi:
                 "link": task.link,
                 "created_at": task.created_at,
                 "is_completed": task.is_completed,
-                "column": task.column,
+                "priority": task.priority,
             }
             for task in tasks
         ]
