@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <title>{{title}} | {{description}}</title>
+</head>
+<body>
+    <nav class="navbar navbar-light">
+      <div class="container">
+        <h1 class="display-5"><a href="/">{{title}}</a></h1>
+        <p class="lead">{{description}}</p>
+        <div id="preloader">
+            <div id="loader"></div>
+        </div>
+      </div>
+    </nav>
+    <section id="data" class="container">
+
+        <table class="table table-striped sortable">
+            <thead class="thead-navy">
+              <tr>
+                <th scope="col">Ticket</th>
+                <th scope="col">Title</th>
+                <th scope="col">Status</th>
+                <th scope="col">Board</th>
+                <th scope="col" class="col-md-2 sorttable_nosort">Links</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+    </section>
+    <footer class="container footer">
+      <hr class="featurette-divider">
+      <div id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">Written by
+              <a href="https://meta.wikimedia.org/wiki/User:Samuel_(WMF)">Samuel (WMF)</a> | <a href="http://github.com/samuelguebo/asana-phabricator-sync">Source code
+              </a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="/static/js/script.js"></script>
+  <script src="/static/js/sortable.js"></script>
+</html>

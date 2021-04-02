@@ -1,0 +1,197 @@
+.navbar-light {
+    background-color: #deebf9;
+    margin-bottom: 20px;
+    padding: 40px 10px;
+}
+
+.navbar-light a {
+    color: #18487b;
+}
+
+.table .thead-navy th {
+    color: #fff;
+    background-color: #18487b;
+    border-color: #32383e;
+}
+
+.table td, .table th{
+    vertical-align: middle;
+}
+/* Sortable tables */
+table.sortable thead {
+    font-weight: bold;
+    cursor: default;
+  }
+  
+  table.sortable th:after,
+  table.sortable th span {
+    color: #FFF;
+  }
+
+  table.sortable
+    th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: "\25B4\25BE";
+    font-size: 0.8em;
+    padding-left: 5px;
+  }
+  table.sortable tbody {
+    counter-reset: sortabletablescope;
+  }
+
+  table.sortable thead tr::before {
+    content: "#";
+    display: table-cell;
+    background-color: #18487b;
+    border-bottom: solid 2px #32383e;
+    border-top: solid 2px #32383e;
+    color: #FFF;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  table.sortable tbody tr::before {
+    content: counter(sortabletablescope);
+    counter-increment: sortabletablescope;
+    display: table-cell;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px 3px;
+    font-weight: bold;
+  }
+  
+/**
+* Loading animation
+*/
+#preloader {
+display: none;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+
+#loader {
+display: block;
+position: relative;
+left: 85%;
+top: 50%;
+width: 120px;
+height: 120px;
+margin: -50px 0 0 -50px;
+border-radius: 50%;
+border: 2px solid transparent;
+border-top-color: #18487b;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 2s linear infinite;
+}
+
+#loader:before {
+content: "";
+position: absolute;
+top: 5px;
+left: 5px;
+right: 5px;
+bottom: 5px;
+border-radius: 50%;
+border: 2px solid transparent;
+border-top-color: #18487b;
+-webkit-animation: spin 3s linear infinite;
+animation: spin 3s linear infinite;
+}
+
+#loader:after {
+content: "";
+position: absolute;
+top: 15px;
+left: 15px;
+right: 15px;
+bottom: 15px;
+border-radius: 50%;
+border: 2px solid transparent;
+border-top-color: #18487b;
+-webkit-animation: spin 1.5s linear infinite;
+animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/**
+ * Higlight discrepancy between data
+ */
+#data tbody tr .different {
+    color: crimson;
+}
+
+#data td .asana::before, #data td .phabricator::before {
+    content: '';
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+}
+
+#data  td .asana::before {
+    background: url('../images/asana-logo.png') no-repeat;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#data td .phabricator::before {
+    background: url('../images/phabricator-logo.png') no-repeat;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#data td .link{
+    display: none;
+    padding: 3px 6px;
+    border-radius: 20px;
+    margin-left: 5px;
+}
+
+#data td .link.active{
+    display: inline-block;
+}
+
+#data td .link.active:hover{
+    background: #FFF;
+}
+
+div#footer {
+    padding: 10px 0px;
+}
+
+div#footer a {
+    color: #18487b
+}
+
+tr.uneeded{
+    display: none;
+}
