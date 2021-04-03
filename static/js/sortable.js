@@ -199,14 +199,9 @@ sorttable = {
       const B = BB[0];
       let a = +A || 0;
       let b = +B || 0;
-      if (A == "+50") a = 51;
-      if (B == "+50") b = 51;
       return a - b;
     };
-    if (id == "results-table") {
-      if (column == 2 || column == 4) sortfn = numericSort;
-    }
-    if (id == "summary-table" && column == 1) sortfn = numericSort;
+    sortfn = numericSort;
     return sortfn;
   },
   guessType: function (table, column) {

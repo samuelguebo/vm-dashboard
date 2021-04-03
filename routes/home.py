@@ -1,5 +1,5 @@
 from config import Config
-from flask import Flask, Blueprint, render_template, jsonify
+from flask import Flask, Blueprint, render_template, jsonify, make_response
 
 """
 A collection of endpoints displaying JSON results
