@@ -1,4 +1,12 @@
 class TableFilter {
+    self = this
+    
+    constructor(table, filterContainer, filters, data){
+        self.table = table
+        self.filterContainer = filterContainer
+        self.filters = filters
+        self.data = data
+    }
     /**
      * Generate HTML item
      * @param {*} filter 
@@ -52,9 +60,9 @@ class TableFilter {
             
             let rangeItem = item.querySelector('input[type=range]')
             rangeItem.addEventListener("input", () => {
-                item.querySelector('.bubble').innerHTML = rangeItem.value;
+                item.querySelector('.bubble').innerHTML = rangeItem.value
                 this.filterTable(self.table, filter, rangeItem.value) 
-              });
+              })
             // Add UI
             valueBlock.appendChild(item)
         }
@@ -85,14 +93,14 @@ class TableFilter {
                 }else{
                     e.parentNode.style.display = ''
                 }
-            });
+            })
 
             // Display only selected values
             for (let selectedNode of selectedNodes){
                 let filteredNodes = table.querySelectorAll(`tbody td[data_${filter.key}="${selectedNode.value}"]`)
                 filteredNodes.forEach(e => {
                     e.parentNode.style.display = ''
-                });
+                })
             }
         }
 
@@ -113,7 +121,7 @@ class TableFilter {
     initFilters = () => {
         let groupedValues = {}
         let container = document.getElementById('data-filter')
-        for (let task of Object.values(self.tasks)){
+        for (let item of Object.values(self.data)){
             for(let [key, value] of Object.entries(self.filters)){
                 // Initiate groupedValues key
                 if(!groupedValues.hasOwnProperty(key)){
@@ -121,8 +129,8 @@ class TableFilter {
                 }
                 
                 // Build/update an array of unique values
-                if(groupedValues[key].indexOf(task[key]) < 0){
-                    groupedValues[key].push(task[key])
+                if(groupedValues[key].indexOf(item[key]) < 0){
+                    groupedValues[key].push(item[key])
                 }
             }
         } 
