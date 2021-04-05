@@ -1,19 +1,21 @@
 .navbar-light {
-    background-color: #deebf9;
+    background-color: #ffead4;
     margin-bottom: 20px;
     padding: 40px 20px;
 }
 
 .navbar-light a {
-    color: #18487b;
+    color: #ff7a7a;
 }
 
 .table .thead-navy th {
     color: #fff;
-    background-color: #18487b;
-    border-color: #32383e;
+    background-color: #ffb27a;
 }
 
+.table thead th {
+    border: none;
+}
 .table td, .table th{
     vertical-align: middle;
 }
@@ -41,9 +43,7 @@ table.sortable thead {
   table.sortable thead tr::before {
     content: "#";
     display: table-cell;
-    background-color: #18487b;
-    border-bottom: solid 2px #32383e;
-    border-top: solid 2px #32383e;
+    background-color: #ffb27a;
     color: #FFF;
     vertical-align: middle;
     text-align: center;
@@ -82,7 +82,7 @@ height: 120px;
 margin: -50px 0 0 -50px;
 border-radius: 50%;
 border: 2px solid transparent;
-border-top-color: #18487b;
+border-top-color: #ffead4;
 -webkit-animation: spin 2s linear infinite;
 animation: spin 2s linear infinite;
 }
@@ -96,7 +96,7 @@ right: 5px;
 bottom: 5px;
 border-radius: 50%;
 border: 2px solid transparent;
-border-top-color: #18487b;
+border-top-color: #ffead4;
 -webkit-animation: spin 3s linear infinite;
 animation: spin 3s linear infinite;
 }
@@ -110,7 +110,7 @@ right: 15px;
 bottom: 15px;
 border-radius: 50%;
 border: 2px solid transparent;
-border-top-color: #18487b;
+border-top-color: #ffead4;
 -webkit-animation: spin 1.5s linear infinite;
 animation: spin 1.5s linear infinite;
 }
@@ -181,12 +181,12 @@ animation: spin 1.5s linear infinite;
     background: #FFF;
 }
 
-div#footer {
-    padding: 10px 0px;
+footer {
+    padding: 20px;
 }
 
-div#footer a {
-    color: #18487b
+footer a {
+    color: #ff7a7a
 }
 
 tr.uneeded{
@@ -200,8 +200,7 @@ tr.uneeded{
 
 #data-filter h6{
     color: #fff;
-    background-color: #18487b;
-    border-color: #32383e;
+    background-color: #ffb27a;
     padding: .75rem;
     font-weight: bold;
 }
