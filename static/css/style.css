@@ -143,13 +143,10 @@ animation: spin 1.5s linear infinite;
     }
 }
 
-/**
- * Higlight discrepancy between data
- */
-#data tbody tr .different {
-    color: crimson;
+.data-container {
+    margin-right: 5px;
+    margin-left: 5px;
 }
-
 #data td .asana::before, #data td .phabricator::before {
     content: '';
     display: inline-block;
@@ -194,4 +191,17 @@ div#footer a {
 
 tr.uneeded{
     display: none;
+}
+
+#data-filter .filter-item{
+    display: block;
+    margin-left: 5px;
+}
+
+#data-filter h6{
+    color: #fff;
+    background-color: #18487b;
+    border-color: #32383e;
+    padding: .75rem;
+    font-weight: bold;
 }

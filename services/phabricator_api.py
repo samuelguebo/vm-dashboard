@@ -67,7 +67,9 @@ class PhabricatorApi:
                 "created_at": task.created_at,
                 "is_completed": task.is_completed,
                 "priority": task.priority,
-                "project": task.project.as_map(),
+                "project_id": task.project.id,
+                "project_title": task.project.title,
+                "project_link": task.project.link,
             }
             for task in tasks
         ]

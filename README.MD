@@ -9,7 +9,7 @@ A dashboard providing a statistical analysis of security vulnerabilities across 
 Install relevant dependencies with `pip install -r requirements.txt`.
 
 ## Set environment variables
-Rename the `.env.example` file into `.env` and modify it according to your Asana and Phabricator API keys and related configurations.
+Rename the `.env.example` file into `.env` and modify it according to your credentials and settings.
 
 ## Quickstart the app
 Once the dependencies and configurations are in place, start the app by running `python app.py`. 

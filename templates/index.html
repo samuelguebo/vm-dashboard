@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light">
-      <div class="container">
+      <div>
         <h1 class="display-5"><a href="/">{{title}}</a></h1>
         <p class="lead">{{description}}</p>
         <div id="preloader">
@@ -18,20 +18,25 @@
         </div>
       </div>
     </nav>
-    <section id="data" class="container">
+    <section class="row data-container">
+      <section id="data" class="container col-md-9">
 
-        <table class="table table-striped sortable">
-            <thead class="thead-navy">
-              <tr>
-                <th scope="col">Ticket</th>
-                <th scope="col">Title</th>
-                <th scope="col">Project</th>
-                <th scope="col">Age</th>
-                <th scope="col">Severity</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+          <table class="table table-striped sortable">
+              <thead class="thead-navy">
+                <tr>
+                  <th scope="col">Ticket</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Year</th>
+                  <th scope="col">Severity</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+      </section>
+      <section id="data-filter" class="col-md-3">
+
+      </section>
     </section>
     <footer class="container footer">
       <hr class="featurette-divider">
@@ -39,7 +44,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">Written by
-              <a href="https://meta.wikimedia.org/wiki/User:Samuel_(WMF)">Samuel (WMF)</a> | <a href="http://github.com/samuelguebo/asana-phabricator-sync">Source code
+              <a href="https://meta.wikimedia.org/wiki/User:Samuel_(WMF)">Samuel (WMF)</a> | <a href="http://github.com/samuelguebo/vm-dashboard">Source code
               </a>
             </div>
             
