@@ -4,20 +4,20 @@ from flask_api_cache import ApiCache
 from config import Config
 
 """
-A collection of endpoints displaying JSON results
-related to the Asana API tasks
+A collection of endpoints displaying
+models as JSON output
 """
 
 api_bp = Blueprint("api_bp", __name__)
-display_limit = 5
+display_limit = 100
 
 
 @api_bp.route("/api/tasks/phabricator")
 @ApiCache(expired_time=int(Config.CACHE_DEFAULT_TIMEOUT))
 def phabricator_tasks():
     """
-    Collect tasks through the services
-    and render them as JSON
+    Collect Phabricator tasks through
+    the services and render them as JSON
     """
     tasks = []
     phab = PhabricatorApi()
