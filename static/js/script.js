@@ -18,16 +18,16 @@ self.table = document.getElementById("data").querySelector("tbody")
 self.filterContainer = document.getElementById("data-filter")
 self.tasks = {}
 self.filters = {
-    priority: {
-        title: "Severity",
-        type: "numeric",
-        key: "priority"
-    }, 
     created_at: {
         title: "Year",
         type: "date",
         key: "created_at"
     },
+    priority: {
+        title: "Severity",
+        type: "text",
+        key: "priority"
+    }, 
     project_title: {
         title: "Project",
         type: "text",
@@ -91,11 +91,11 @@ const addRowToTable = item => {
     
     row.id = item.id
     let rowHTML = ""
-    rowHTML += `<td>${(item.id !== false ? item.id : "")}</td>`
-    rowHTML += `<td>${item.title}</td>`
-    rowHTML += `<td data_project_title="${item.project_title}">${item.project_title}</td>`
-    rowHTML += `<td data_created_at="${new Date(item.created_at).getFullYear()}">${new Date(item.created_at).getFullYear()}</td>`
-    rowHTML += `<td data_priority="${item.priority}">${item.priority}</td>`
+    rowHTML += `<td class="unfiltered">${(item.id !== false ? item.id : "")}</td>`
+    rowHTML += `<td class="unfiltered">${item.title}</td>`
+    rowHTML += `<td class="unfiltered" data_project_title="${item.project_title}">${item.project_title}</td>`
+    rowHTML += `<td class="unfiltered" data_created_at="${new Date(item.created_at).getFullYear()}">${new Date(item.created_at).getFullYear()}</td>`
+    rowHTML += `<td class="unfiltered" data_priority="${item.priority}">${item.priority}</td>`
     
     row.innerHTML = rowHTML
     self.table.append(row)
@@ -127,7 +127,7 @@ const init = () => {
     
     // Make API calls
     let tableFilter = new TableFilter(self.table, self.filterContainer, self.filters, self.data)
-    getTaskFromApi('/api/tasks/phabricator').then(() => tableFilter.initFilters())
+    getTaskFromApi('/api/tasks/phabricator').then(() => tableFilter.generateFilters())
 }
 
 // Run the show

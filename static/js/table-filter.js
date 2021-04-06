@@ -1,11 +1,10 @@
 class TableFilter {
-    self = this
     
     constructor(table, filterContainer, filters, data){
-        self.table = table
-        self.filterContainer = filterContainer
-        self.filters = filters
-        self.data = data
+        this.table = table
+        this.filterContainer = filterContainer
+        this.filters = filters
+        this.data = data
     }
     /**
      * Generate HTML item
@@ -34,7 +33,7 @@ class TableFilter {
                 // Bind event listener
                 let checker = item.querySelector('input[type=checkbox]')
                 checker.addEventListener('change', () => {
-                    this.filterTable(self.table, filter, value, checker.checked) 
+                    this.filterTable(this.table, filter, value, checker.checked) 
                 })
                 
                 // Add UI
@@ -53,7 +52,7 @@ class TableFilter {
             // Sort ascendingly
             values.sort((a, b) => a-b) 
             item.innerHTML = `
-            <div class="slidecontainer">
+            <div class="range-container">
                 <input type="range" min="${values[0]}" max="${values[values.length-1]}" value="${values[Math.floor(values.length / 2)]}" class="slider" name="${filter.key}_range">
                 <output class="bubble">${values[Math.floor(values.length / 2)]}</output>
             </div>`
@@ -61,8 +60,8 @@ class TableFilter {
             let rangeItem = item.querySelector('input[type=range]')
             rangeItem.addEventListener("input", () => {
                 item.querySelector('.bubble').innerHTML = rangeItem.value
-                this.filterTable(self.table, filter, rangeItem.value) 
-              })
+                this.filterTable(this.table, filter, rangeItem.value) 
+            })
             // Add UI
             valueBlock.appendChild(item)
         }
@@ -82,7 +81,7 @@ class TableFilter {
      */
     filterTable = (table, filter, value, isChecked=true) => {
         if(filter.type == 'text'){
-            let selectedNodes = self.filterContainer.querySelectorAll(`.${filter.key} input[type=checkbox]:checked`)
+            let selectedNodes = this.filterContainer.querySelectorAll(`.${filter.key} input[type=checkbox]:checked`)
             
             // Hide all TDs by default
             table.querySelectorAll('tbody td').forEach(e => {
@@ -118,11 +117,11 @@ class TableFilter {
      * Set up and display filter
      * options for the table
      */
-    initFilters = () => {
+    generateFilters = () => {
         let groupedValues = {}
         let container = document.getElementById('data-filter')
-        for (let item of Object.values(self.data)){
-            for(let [key, value] of Object.entries(self.filters)){
+        for (let item of Object.values(this.data)){
+            for(let [key, value] of Object.entries(this.filters)){
                 // Initiate groupedValues key
                 if(!groupedValues.hasOwnProperty(key)){
                     groupedValues[key] = []
@@ -135,9 +134,9 @@ class TableFilter {
             }
         } 
 
-        for(let [key, value] of Object.entries(self.filters)){
-            // Display relevant UI
-            this.displayFilter(self.filters[key], groupedValues[key], container)
+        for(let [key, value] of Object.entries(this.filters)){
+            // Display relevant UI and bind listener events
+            this.displayFilter(this.filters[key], groupedValues[key], container)
         }
     }
 }

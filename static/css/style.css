@@ -115,6 +115,10 @@ border-top-color: #ffead4;
 animation: spin 1.5s linear infinite;
 }
 
+#loader:after, #loader:before, #loader {
+    border-top-color: #e85151;
+}
+
 @-webkit-keyframes spin {
 0% {
     -webkit-transform: rotate(0deg);
@@ -198,9 +202,13 @@ tr.uneeded{
     margin-left: 5px;
 }
 
+#data-filter h6, table.sortable thead tr::before, 
+.table .thead-navy th, #data-filter h6 {
+    background: #e85151;
+}
 #data-filter h6{
     color: #fff;
-    background-color: #ffb27a;
     padding: .75rem;
     font-weight: bold;
+    color: #FFF;
 }
