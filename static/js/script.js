@@ -77,7 +77,7 @@ const updateUI = task => {
             self.data[task.id] = task
         } 
     }
-    // Hide loading animation
+    
     self.preloader.style.display = "none"
 }
   
@@ -91,11 +91,10 @@ const addRowToTable = item => {
     
     row.id = item.id
     let rowHTML = ""
-    rowHTML += `<td class="unfiltered">${(item.id !== false ? item.id : "")}</td>`
-    rowHTML += `<td class="unfiltered">${item.title}</td>`
-    rowHTML += `<td class="unfiltered" data_project_title="${item.project_title}">${item.project_title}</td>`
-    rowHTML += `<td class="unfiltered" data_created_at="${new Date(item.created_at).getFullYear()}">${new Date(item.created_at).getFullYear()}</td>`
-    rowHTML += `<td class="unfiltered" data_priority="${item.priority}">${item.priority}</td>`
+    rowHTML += `<td><a href="${item.link}">${item.title}</a></td>`
+    rowHTML += `<td data_project_title="${item.project_title}"><a href="${item.project_link}">${item.project_title}</a></td>`
+    rowHTML += `<td data_created_at="${new Date(item.created_at).getFullYear()}">${new Date(item.created_at).getFullYear()}</td>`
+    rowHTML += `<td data_priority="${item.priority}">${item.priority}</td>`
     
     row.innerHTML = rowHTML
     self.table.append(row)
@@ -123,11 +122,13 @@ const init = () => {
     // Display loading animation
     window.addEventListener("load", (e) => {
         self.preloader.style.display = "block"
+
+        // Make API calls
+        let tableFilter = new TableFilter(self.table, self.filterContainer, self.filters, self.data)
+        getTaskFromApi('/api/tasks/phabricator').then(() => tableFilter.generateFilters())
     })
     
-    // Make API calls
-    let tableFilter = new TableFilter(self.table, self.filterContainer, self.filters, self.data)
-    getTaskFromApi('/api/tasks/phabricator').then(() => tableFilter.generateFilters())
+    
 }
 
 // Run the show
