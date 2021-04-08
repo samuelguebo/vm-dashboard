@@ -1,3 +1,6 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+}
 .navbar-light {
     background-color: #ffead4;
     margin-bottom: 20px;
@@ -232,3 +235,23 @@ tr.uneeded{
  .w-25 {
      width: 25%;
  }
+
+/**
+* Summary cards
+*/
+.summary{
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+.summary .card{
+    margin-bottom: 10px;
+}
+canvas {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    /* margin: 0 auto; */
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }

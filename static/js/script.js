@@ -125,7 +125,22 @@ const init = () => {
 
         // Make API calls
         let tableFilter = new TableFilter(self.table, self.filterContainer, self.filters, self.data)
-        getTaskFromApi('/api/tasks/phabricator').then(() => tableFilter.generateFilters())
+        getTaskFromApi('/api/tasks/phabricator').then(() =>  {
+            tableFilter.generateFilters()
+            let groupedValues = tableFilter.getGroupedValues()
+            // Display Project stats
+            let stats = new Stats(document.getElementById('project-chart'))
+            stats.displayChart(groupedValues['project_title'])
+
+            // Display Yea stats
+            stats = new Stats(document.getElementById('year-chart'))
+            stats.displayChart(groupedValues['created_at'].map(i => new Date(i).getFullYear()))
+
+            // Display Severity stats
+            stats = new Stats(document.getElementById('severity-chart'))
+            stats.displayChart(groupedValues['priority'])
+
+        })
     })
     
     

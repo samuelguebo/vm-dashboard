@@ -118,8 +118,21 @@ class TableFilter {
      * options for the table
      */
     generateFilters = () => {
-        let groupedValues = {}
         let container = document.getElementById('data-filter')
+        let groupedValues = this.getGroupedValues(true)
+
+        for(let [key, value] of Object.entries(this.filters)){
+            // Display relevant UI and bind listener events
+            this.displayFilter(this.filters[key], groupedValues[key], container)
+        }
+    }
+
+    /**
+     * Aggregate values 
+     * @param {boolean} isUnique 
+     */
+    getGroupedValues = (isUnique=false) => {
+        let groupedValues = []
         for (let item of Object.values(this.data)){
             for(let [key, value] of Object.entries(this.filters)){
                 // Initiate groupedValues key
@@ -128,15 +141,15 @@ class TableFilter {
                 }
                 
                 // Build/update an array of unique values
-                if(groupedValues[key].indexOf(item[key]) < 0){
+                if(isUnique == true) {
+                    if(groupedValues[key].indexOf(item[key]) < 0){
+                        groupedValues[key].push(item[key])
+                    }
+                }else{
                     groupedValues[key].push(item[key])
                 }
             }
-        } 
-
-        for(let [key, value] of Object.entries(this.filters)){
-            // Display relevant UI and bind listener events
-            this.displayFilter(this.filters[key], groupedValues[key], container)
         }
+        return groupedValues 
     }
 }

@@ -29,7 +29,7 @@ class PhabricatorApi:
         task_list = []
 
         tasks = self.client.maniphest.search(
-            queryKey="all", constraints={"projects": [project.id]}, limit=limit
+            queryKey="open", constraints={"projects": [project.id]}, limit=limit
         )["data"]
 
         # Parse JSON into Task objects

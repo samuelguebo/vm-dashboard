@@ -18,23 +18,62 @@
         </div>
       </div>
     </nav>
-    <section class="row data-container">
-      <section id="data" class="col-9">
-        <table class="table table-striped sortable table-reponsive">
-            <thead class="thead-navy">
-              <tr>
-                <th class="w-45">Ticket</th>
-                <th class="w-25">Project</th>
-                <th>Year</th>
-                <th>Severity</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-      </section>
-      <section id="data-filter" class="col-3">
+    <section class="summary data-container">
+      <h3>Overall statistics </h3>
+      <div class="row">
 
-      </section>
+        <!-- Years -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">By year</h5>
+              <canvas id="year-chart" height="0" width="0"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Severity
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">By severity</h5>
+              <canvas id="severity-chart" height="0" width="0"></canvas>
+            </div>
+          </div>
+        </div>
+         -->
+       
+         <!-- projects -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">By project</h5>
+              <canvas id="project-chart" height="0" width="0"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="summary data-container">
+      <h3>Granular breakdown </h3>
+      <section class="row">
+        <section id="data" class="col-9">
+          <table class="table table-striped sortable table-reponsive">
+              <thead class="thead-navy">
+                <tr>
+                  <th class="w-45">Ticket</th>
+                  <th class="w-25">Project</th>
+                  <th>Year</th>
+                  <th>Severity</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+          </table>
+        </section>
+      <section id="data-filter" class="col-3"></section>
+    </section>
+
     </section>
     <footer class="footer">
       <hr class="featurette-divider">
@@ -56,6 +95,8 @@
     </footer>
   </body>
   <script src="/static/js/table-filter.js"></script>
+  <script src="/static/js/Chart.min.js"></script>
+  <script src="/static/js/stats.js"></script>
   <script src="/static/js/script.js"></script>
   <script src="/static/js/sortable.js"></script>
 </html>
