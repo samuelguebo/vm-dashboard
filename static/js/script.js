@@ -9,7 +9,7 @@
  */
 
  /**
-  * Global variables
+  * Global letiables
   * and settings
   */
 let self = window
@@ -121,6 +121,8 @@ const slugify = str =>
 const init = () => {
     // Display loading animation
     window.addEventListener("load", (e) => {
+
+        initScrollToTop(document.getElementById('back-to-top'))
         self.preloader.style.display = "block"
 
         // Make API calls
@@ -137,8 +139,10 @@ const init = () => {
             stats.displayChart(groupedValues['created_at'].map(i => new Date(i).getFullYear()))
 
             // Display Severity stats
+            /*
             stats = new Stats(document.getElementById('severity-chart'))
             stats.displayChart(groupedValues['priority'])
+            */
 
         })
     })
@@ -146,5 +150,34 @@ const init = () => {
     
 }
 
+/**
+ * Implement scroll to top animation
+ * for better UX
+ */
+const initScrollToTop = (scrollToTopBtn) => {
+    document.addEventListener("scroll", handleScroll);
+    function handleScroll() {
+        let limit = 600; // Show button if we're 600px down
+        let scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+        if(document.documentElement.scrollTop > limit) {
+            //show button
+            scrollToTopBtn.style.display = "block";
+        } else {
+            //hide button
+            scrollToTopBtn.style.display = "none";
+        }
+    }
+
+    scrollToTopBtn.addEventListener("click", scrollToTop);
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+}
 // Run the show
 init()

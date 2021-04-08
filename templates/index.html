@@ -18,9 +18,21 @@
         </div>
       </div>
     </nav>
+    <div id="scroll-to-top"></div>
     <section class="summary data-container">
       <h3>Overall statistics </h3>
       <div class="row">
+
+         <!-- projects -->
+         <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">By project</h5>
+              <canvas id="project-chart" height="0" width="0"></canvas>
+            </div>
+          </div>
+        </div>
+
 
         <!-- Years -->
         <div class="col-sm-6">
@@ -43,15 +55,6 @@
         </div>
          -->
        
-         <!-- projects -->
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">By project</h5>
-              <canvas id="project-chart" height="0" width="0"></canvas>
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>
@@ -92,6 +95,7 @@
             </div>
           </div>
         </div>
+        <div class="row back-to-top-wrapper"><a href="#0" class="back-to-top" id="back-to-top">^</a></div>
     </footer>
   </body>
   <script src="/static/js/table-filter.js"></script>

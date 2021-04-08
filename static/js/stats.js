@@ -84,7 +84,6 @@ class Stats {
      * @param {*} data 
      */
     total = function (data) {
-        console.log(data)
         return data.reduce((item, i) => {
           if (typeof item[i] !== "undefined") {
             item[i] += 1
