@@ -29,7 +29,7 @@ self.filters = {
         key: "priority"
     }, 
     project_title: {
-        title: "Project",
+        title: "Vulnerability",
         type: "text",
         key: "project_title"
     },
