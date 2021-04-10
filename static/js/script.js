@@ -9,30 +9,30 @@
  */
 
  /**
-  * Global letiables
+  * Global variables
   * and settings
   */
-let self = window
-self.preloader = document.getElementById("preloader")
-self.table = document.getElementById("data").querySelector("tbody")
-self.filterContainer = document.getElementById("data-filter")
-self.tasks = {}
-self.filters = {
+this.preloader = document.getElementById("preloader")
+this.table = document.getElementById("data").querySelector("tbody")
+this.filterContainer = document.getElementById("data-filter")
+this.tasks = {}
+this.filters = {
+
     created_at: {
         title: "Year",
         type: "date",
         key: "created_at"
     },
-    priority: {
-        title: "Severity",
-        type: "text",
-        key: "priority"
-    }, 
     project_title: {
         title: "Vulnerability",
         type: "text",
         key: "project_title"
     },
+    priority: {
+        title: "Severity",
+        type: "numeric",
+        key: "priority"
+    }, 
 }
 
 /**
@@ -42,78 +42,8 @@ self.filters = {
  * @param {String} url
  */
 const getTaskFromApi = url => {
-
-    return fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-        for(item of data) {
-           
-            // Pick Phab ID, otherwise generate one from the title
-            item.is_completed = (item.is_completed == false) ? "Open" : "Closed" 
-            
-            // Discard 'Closed' tasks. Can be disabled if needed
-            if(item.is_completed !== 'Closed'){
-                updateUI(item)
-            }
-        }
-    })
+    return fetch(url) .then((response) => response.json())
 }
-
-/**
- * Update the user interface by adding new tasks
- * to the table with their relevant details
- *
- * @param {Object} task
- */
-const updateUI = task => {
-    // Display loading animation
-    self.preloader.style.display = "block"
-    
-    if (typeof task !== "undefined" && typeof task.id !== false) {
-
-        if(!self.data.hasOwnProperty(task.id)){
-            // Display data in table as a row
-            addRowToTable(task)
-            self.data[task.id] = task
-        } 
-    }
-    
-    self.preloader.style.display = "none"
-}
-  
-/**
- * Append row to the table
- * @param {Object} item
- */
-const addRowToTable = item => {
-    // build HTML rows
-    let row = document.createElement("tr")
-    
-    row.id = item.id
-    let rowHTML = ""
-    rowHTML += `<td><a href="${item.link}">${item.title}</a></td>`
-    rowHTML += `<td data_project_title="${item.project_title}"><a href="${item.project_link}">${item.project_title}</a></td>`
-    rowHTML += `<td data_created_at="${new Date(item.created_at).getFullYear()}">${new Date(item.created_at).getFullYear()}</td>`
-    rowHTML += `<td data_priority="${item.priority}">${item.priority}</td>`
-    
-    row.innerHTML = rowHTML
-    self.table.append(row)
-
-}
-
-/**
- * Convert regular text into a dash-separated
- * series of non-special characters
- * @param {*} str 
- */
-const slugify = str =>
-  str
-  .trim()                      // remove whitespaces at the start and end of string
-  .toLowerCase()              
-  .replace(/^-+/g, "")         // remove one or more dash at the start of the string
-  .replace(/[^\w-]+/g, "-")    // convert any on-alphanumeric character to a dash
-  .replace(/-+/g, "-")         // convert consecutive dashes to singuar one
-  .replace(/-+$/g, "")
 
  /**
  * Entry point of the UI interactions
@@ -122,29 +52,30 @@ const init = () => {
     // Display loading animation
     window.addEventListener("load", (e) => {
 
-        initScrollToTop(document.getElementById('back-to-top'))
-        self.preloader.style.display = "block"
-
-        // Make API calls
-        let tableFilter = new TableFilter(self.table, self.filterContainer, self.filters, self.data)
-        getTaskFromApi('/api/tasks/phabricator').then(() =>  {
+        getTaskFromApi('/api/tasks/phabricator').then((data) =>  {
+            
+            this.data = data
+            // Make API calls
+            let tableFilter = new TableFilter(this.table, this.filterContainer, this.filters, this.data)
+            // Generate table and relevant filtering
+            tableFilter.generateTable(true, this.data)
             tableFilter.generateFilters()
-            let groupedValues = tableFilter.getGroupedValues()
+
             // Display Project stats
+            let groupedValues = tableFilter.getGroupedValues()
             let stats = new Stats(document.getElementById('project-chart'))
             stats.displayChart(groupedValues['project_title'])
 
-            // Display Yea stats
+            // Display Year stats
             stats = new Stats(document.getElementById('year-chart'))
             stats.displayChart(groupedValues['created_at'].map(i => new Date(i).getFullYear()))
 
-            // Display Severity stats
-            /*
-            stats = new Stats(document.getElementById('severity-chart'))
-            stats.displayChart(groupedValues['priority'])
-            */
-
         })
+
+        // Set up scroll-to-top
+        initScrollToTop(document.getElementById('back-to-top'))
+        this.preloader.style.display = "block"
+        
     })
     
     
@@ -158,8 +89,6 @@ const initScrollToTop = (scrollToTopBtn) => {
     document.addEventListener("scroll", handleScroll);
     function handleScroll() {
         let limit = 600; // Show button if we're 600px down
-        let scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-
         if(document.documentElement.scrollTop > limit) {
             //show button
             scrollToTopBtn.style.display = "block";
@@ -179,5 +108,6 @@ const initScrollToTop = (scrollToTopBtn) => {
     }
 
 }
+
 // Run the show
 init()

@@ -21,5 +21,5 @@ class Task:
             self.created_at,
             self.is_completed,
             self.priority,
-            self.project
+            self.project,
         )
